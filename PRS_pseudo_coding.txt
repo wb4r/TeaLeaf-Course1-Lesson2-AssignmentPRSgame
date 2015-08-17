@@ -1,0 +1,21 @@
+NAMES       CLASSES
+
+    Players
+    Combinations
+    
+    TheGame
+
+
+
+
+VERBS       METHODS
+
+    Choose
+    
+# 1- Welcome
+# 2- Declare players
+# 3- player1 Choose an option PRS
+# 4- player2 Choose an option PRS
+# 5- player1_option vs player2_option
+# 6- winner
+# 7- replay
