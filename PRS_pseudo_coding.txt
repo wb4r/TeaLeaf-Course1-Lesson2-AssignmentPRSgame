@@ -1,16 +1,20 @@
 NAMES       CLASSES
-
-    Players
-    Combinations
     
-    TheGame
+    Players
+    Human
+    Computer
+    Play
 
 
 
 
 VERBS       METHODS
 
-    Choose
+    Pick Hand
+    Compare
+    
+    
+    
     
 # 1- Welcome
 # 2- Declare players
@@ -19,3 +23,8 @@ VERBS       METHODS
 # 5- player1_option vs player2_option
 # 6- winner
 # 7- replay
+
+
+Animal  > Mammal > Dog
+Player  > Human
+        > Computer
