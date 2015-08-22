@@ -8,17 +8,6 @@ class Player
     @name = name
     @choice = choice
   end
-  
-  def pick_hand(player)
-    if player.name != "R2P2"
-      begin
-        puts "#{self.name.capitalize} please, pick an option 'p', 'r', 's':"
-        self.choice = gets.downcase.chomp
-      end until Game::CHOICES.include?(choice)
-    else
-      self.choice = Game::CHOICES.sample
-    end
-  end
 end
 
 class Human < Player 
@@ -31,25 +20,36 @@ class Human < Player
     sleep(2)
     system 'clear'
   end
+  
+  def pick_hand
+    begin
+      system 'clear'
+      puts "#{self.name.capitalize} please, pick an option 'p', 'r', 's':"
+      self.choice = gets.downcase.chomp
+    end until Game::CHOICES.include?(choice)
+  end
 end
 
-class Computer < Player 
+class Computer < Player
+  def pick_hand
+    self.choice = Game::CHOICES.sample
+  end
 end
 
 module Comparable
-  def compare
+  def compare(human, computer)
     system 'clear'
-    if @human.choice == @computer.choice
+    if human == computer
       puts "=> Tie"
-    elsif (@human.choice == "r" && @computer.choice == "s") ||
-          (@human.choice == "p" && @computer.choice == "r") ||
-          (@human.choice == "s" && @computer.choice == "p")
+    elsif (human == "r" && computer == "s") ||
+          (human == "p" && computer == "r") ||
+          (human == "s" && computer == "p")
       puts "=> Human win!"
     else
       puts "=> Computer win!"
     end
     puts ""
-    puts "Human choice: #{@human.choice} // Computer choice: #{@computer.choice}"
+    puts "#{@human.name.capitalize}'s' choice: #{human} // Computer's choice: #{computer}"
   end
 end
 
@@ -71,24 +71,28 @@ class Game
   end
   
   def human_hand
-    @human.pick_hand(@human)
+    @human.pick_hand
   end
   
   def computer_hand
-    @computer.pick_hand(@computer)
+    @computer.pick_hand
+  end
+  
+  def play_again?
+    puts ""
+    puts "Do you want to play again #{@human.name.capitalize}?"
+    replay = gets.downcase.chomp
+    if replay == 'y'
+      play
+    end
   end
   
   def play
     human_hand
     computer_hand
-    compare
+    compare(@human.choice, @computer.choice)
+    play_again?
   end
 end
 
-replay = 'y'
-begin
-  new_game = Game.new.play
-  puts ""
-  puts "Do you want to play again?"
-  replay = gets.chomp
-end until replay != 'y'
+Game.new.play
