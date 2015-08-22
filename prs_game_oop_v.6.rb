@@ -32,8 +32,18 @@ end
 
 module Comparable
   def compare_hands(humanchoice, computerchoice)
-    puts humanchoice
-    puts computerchoice
+    h = humanchoice
+    c = computerchoice
+    binding.pry
+    if h == c
+      puts "=> Tie"
+    elsif (h == "rock" && c == "scissors") ||
+          (h == "paper" && c == "rock") ||
+          (h == "scissors" && c == "paper")
+      puts "=> Human win!"
+    else
+      puts "=> Computer win!"
+    end
   end
 end
 
